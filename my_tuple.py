@@ -1,4 +1,6 @@
+import random
 import statistics
+from datetime import datetime, timedelta
 
 group_max: tuple[int] = (100,)
 print(group_max[0])
@@ -79,17 +81,31 @@ print(3 in tuple_2)
 
 # 1
 # create a tuple with numbers from 0-20
+print(tuple(range(21)))
 # 2
-# tuple1 = 10 random numbers between 1-10 (1, 4, 5..)
-# tuple2 = 10 random numbers between 1-10 (2, 4, 6..)
-# tuple3 = all similar numbers            (4)
+# tuple1 = 10 random numbers between 1-10 (1, 4, 5, 7)
+# tuple2 = 10 random numbers between 1-10 (7, 2, 4, 6)
+# tuple3 = only similar numbers            (4, 7)
+# tuple(x for x in tuple1 if x in tuple2)
+# Bonus: tuple3 should be unique ... without -- (2, 4, 2, .. )
+tuple1: tuple[int] = tuple(random.randint(1, 10) for _ in range(10))
+tuple2: tuple[int] = tuple(random.randint(1, 10) for _ in range(10))
+tuple3: tuple[int] = tuple(x for x in tuple1 if x in tuple2)
+print(tuple1)
+print(tuple2)
+print('both', tuple3)
+# 2.5
+# map each item from tuple 3 to it's square ==> i.e. 3 will become 9 in the new tuple
+print(tuple(x**2 for x in tuple3))
 # 3
 # put in tuple the datetime.now and the next 7 days
 # from datetime import datetime, timedelta
 # print((datetime.now() + timedelta(days=1)).strftime("%H:%M:%S.%f %Y-%B-%d %A"))
+print(tuple((datetime.now() + timedelta(days=x)).strftime("%H:%M:%S.%f %Y-%B-%d %A") for x in range(8)))
 # 4
-# grades = (("Alice", 85),("Bob", 90),("Charlie", 88),("David", 92),("Eve", 79))
-# create a new tuple of tuples by sorted grades
+grades = (("Alice", 92), ("Bob", 90), ("Charlie", 88), ("David", 85), ("Eve", 79))
+# create a new tuple of these pairs sorted by grades
+print(tuple(sorted(grades, key=lambda pair: pair[1])))
 
 
 
